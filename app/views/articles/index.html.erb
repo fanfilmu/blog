@@ -1,5 +1,14 @@
 <h1>List Articles</h1>
 
+<%= form_tag articles_path, method: :get do %>
+  <div class="input-group">
+    <%= text_field_tag :q, params[:q], class: "form-control" %>
+    <span class="input-group-btn">
+      <%= submit_tag "Search", class: "btn btn-default" %>
+    </span>
+  </div>
+<% end %>
+
 <div class="list-group">
   <% @articles.each do |article| %>
     <div class="list-group-item">

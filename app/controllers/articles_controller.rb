@@ -2,7 +2,8 @@ class ArticlesController < ApplicationController
   before_action :find_article, only: [:show, :edit, :update, :destroy]
 
   def index
-    @articles = Article.all.order(created_at: :asc)
+    @articles = Article.all.order(created_at: :desc)
+    @articles = @articles.where("? = any(tags)", params[:q]) if params[:q].present?
   end
 
   def new
