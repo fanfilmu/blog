@@ -3,7 +3,7 @@ class ArticlesController < ApplicationController
   before_action :authorize_article, only: [:edit, :update, :destroy]
 
   def index
-    @articles = Article.all.order(created_at: :desc)
+    @articles = Article.includes(:author).order(created_at: :desc)
     @articles = @articles.where("? = any(tags)", params[:q]) if params[:q].present?
   end
 
@@ -23,6 +23,7 @@ class ArticlesController < ApplicationController
 
   def show
     @comment = Comment.new
+    @like = Like.find_or_initialize_by(article: @article, user: current_user)
   end
 
   def edit
