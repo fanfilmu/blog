@@ -1,4 +1,6 @@
 class Article < ApplicationRecord
+  mount_uploader :banner, BannerUploader
+
   has_many :comments, dependent: :destroy
   has_many :likes
   has_many :users, through: :likes
